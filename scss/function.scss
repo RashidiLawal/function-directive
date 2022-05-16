@@ -1,0 +1,214 @@
+/* $thing: thing;
+
+@function background($color) {
+    $thing:stuff;
+    @return $color;
+}
+
+.mad {background: background(yellowgreen);};
+.thing {content: "#{$thing}";} 
+ */
+
+
+
+/* $translucent-color: rgba(silver, 0.5);
+
+@function background($color: $translucent-color, $img: null) {
+    $url: if($img, url("/Function_directive/image/#{$img}.gif"), null);
+    @return $color $url;
+}
+
+.mad {background: background(red);}
+.unknown {background: background();}
+.eagle {background: background(rgba(rebeccapurple, 0.5), eagle);} */
+
+
+
+/* $translucent-color: rgba(silver, 0.5);
+
+@function background($color: $translucent-color, $img: null) {
+    $url: if($img, url("/Function_directive/image/#{$img}.gif"), null);
+    @return $color $url;
+}
+
+.mad {background: background(red);}
+.unknown {background: background();}
+.eagle {background: background($img:eagle);} */
+
+
+/* //this code can have been written using mixin
+$translucent-color: rgba(silver, 0.5);
+
+@function background($color: $translucent-color, $img: null, $additional-values...) {
+    $url: if($img, url("/Function_directive/image/#{$img}.gif"), null);
+    @return $color $url $additional-values;
+}
+
+.mad {background: background(red);}
+.unknown {background: background();}
+.eagle {background: background($img:eagle);}
+.abrakadra {background: background($translucent-color, abrakadra , center fixed);} */
+
+
+
+/* $translucent-color: rgba(silver, 0.5);
+
+@mixin background($color: $translucent-color, $img: null, $additional-values...) {
+    $url: if($img, url("/Function_directive/image/#{$img}.gif"), null);
+    background:  $color $url $additional-values;
+}
+
+.mad {@include background(red);}
+.unknown {@include background();}
+.eagle {@include background($img:eagle);}
+.abrakadra {@include background($translucent-color, abrakadra , center fixed);} 
+*/
+
+
+
+/* //ANOTHER SECTION FOR TYPOGRAPHICAL SCALE
+$ratio: 1.2;
+
+@function font-scale($exponent) {
+    $value: 1;
+    @for $i from 1 to $exponent {
+        $value: $value * $ratio;
+        // @debug value is $value;
+    }
+
+    @return 14px * $value;
+}
+
+.stuff {font-size: font-scale(6);} */
+
+
+
+/* //if we pass in zero here, we should get the base font-size; but that is not happening
+$ratio: 1.2;
+
+@function font-scale($exponent) {
+    $value: 1;
+    @for $i from 1 to $exponent {
+        $value: $value * $ratio;
+        
+    }
+
+    @return 14px * $value;
+}
+
+.stuff {font-size: font-scale(6);} */
+
+
+
+
+/* $ratio: 1.2;
+
+@function font-scale($exponent) {
+    $value: 1;
+    @for $i from 1 to $exponent {
+        $value: $value * $ratio;
+        
+    }
+
+    @return 14px * $value;
+}
+
+.stuff {font-size: font-scale(0);} */
+
+
+
+/* $ratio: 1.2;
+
+@function font-scale($exponent) {
+    $value: 1;
+    $base-font: 14px;
+
+    @for $i from 1 to $exponent {
+        $value: $value * $ratio;
+        
+    }
+
+    @return if($exponent > 0, $base-font * $value, $base-font);
+}
+
+.stuff {font-size: font-scale(0);} */
+
+
+/* //the font-scale() function can be used on individual classes or combined it with other sass feature like looping for header elements 
+$ratio: 1.2;
+
+@function font-scale($exponent) {
+    $value: 1;
+    $base-font: 14px;
+
+    @for $i from 1 to $exponent {
+        $value: $value * $ratio;
+        
+    }
+
+    @return if($exponent > 0, $base-font * $value, $base-font);
+}
+
+.stuff {font-size: font-scale(0);}
+.things {font-size: font-scale(2);}
+
+@for $i from 1 through 6 {
+    $exponent: 7 - $i;
+
+    h#{$i} {font-size: font-scale($exponent);}
+}
+ */
+
+
+
+
+/* //making the font-scale() a reusable module
+@function font-scale($exponent, $ratio: 1.2, $base-font: 14px) {
+    $value: 1;
+    $base-font: 14px;
+
+    @for $i from 1 to $exponent {
+        $value: $value * $ratio;
+        
+    }
+
+    @return if($exponent > 0, $base-font * $value, $base-font);
+}
+
+.stuff {font-size: font-scale(0);}
+.things {font-size: font-scale(2);}
+
+@for $i from 1 through 6 {
+    $exponent: 7 - $i;
+
+    h#{$i} {font-size: font-scale($exponent);}
+}
+ */
+
+
+
+//and the user can still pass in their own base-font or ratio value
+ @function font-scale($exponent, $ratio: 1.2, $base-font: 14px) {
+    $value: 1;
+    $base-font: 14px;
+
+    @for $i from 1 to $exponent {
+        $value: $value * $ratio;
+        
+    }
+
+    @return if($exponent > 0, $base-font * $value, $base-font);
+}
+
+.stuff {font-size: font-scale(0);}
+.things {font-size: font-scale(2);}
+
+@for $i from 1 through 6 {
+    $exponent: 7 - $i;
+
+    h#{$i} {font-size: font-scale($exponent, $ratio: 2.1);}
+}
+
+
+
+
